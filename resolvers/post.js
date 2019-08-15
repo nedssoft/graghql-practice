@@ -14,6 +14,26 @@ module.exports = {
         userId,
         content
       });
+    },
+    async updatePost(_, args, { models}) {
+      const post = await models.Post.findOne({
+        where: { id: args.postId }
+      });
+      if (post) {
+        post.update(args);
+      }
+      return post;
+    },
+    async deletePost(_, {postId}, { models }) {
+      const post = await models.Post.findOne({where: {id: postId }});
+      if (post) {
+        const deleted = post.destroy();
+        if (deleted) {
+          return {
+            message: 'Post deleted'
+          }
+        }
+      }
     }
   },
  Post: {

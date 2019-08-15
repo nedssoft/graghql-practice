@@ -21,14 +21,30 @@ const postType = gql`
       userId: Int!
       content: String!
     ): createPostResponse
+    
+    updatePost(
+      postId: Int!
+      title: String
+      content: String
+      userId: Int
+    ): updatePostResponse
 
+    deletePost(postId: Int!): deletePostResponse
   }
 
+  type updatePostResponse {
+    id: Int
+    title: String
+    content: String
+  }
   type createPostResponse {
     id: Int
     title: String
     content: String
     author: User
+  }
+  type deletePostResponse {
+    message: String!
   }
 `;
 
