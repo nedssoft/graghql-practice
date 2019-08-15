@@ -6,7 +6,8 @@
   "author": "Orie chinedu",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "node index.js"
   },
   "dependencies": {
     "apollo-server-express": "^2.8.1",
