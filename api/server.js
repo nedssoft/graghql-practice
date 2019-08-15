@@ -1,15 +1,21 @@
-const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
-const typeDefs = require('../schema')
-const resolvers = require('../resolvers')
-const models = require('../database/models');
-const app = express()    
+const express = require("express");
+const { ApolloServer, gql } = require("apollo-server-express");
+const typeDefs = require("../schema");
+const resolvers = require("../resolvers");
+const models = require("../database/models");
+const app = express();
 
 // Construct a schema, using GraphQL schema language
-const server = new ApolloServer({ typeDefs, resolvers, context: { models } });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  introspection: true,
+  playground: true,
+  context: { models }
+});
 server.applyMiddleware({ app });
 
 module.exports = {
   app,
   graphqlPath: server.graphqlPath
-}
+};
