@@ -10,7 +10,9 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "apollo-datasource": "^0.6.1",
     "apollo-server-express": "^2.8.1",
+    "auto-bind": "^2.1.0",
     "babel": "^6.23.0",
     "dependencies": "^0.0.1",
     "dotenv": "^8.0.0",

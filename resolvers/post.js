@@ -1,39 +1,27 @@
 module.exports = {
   Query: {
-    async getAllPosts(_, __, { models }) {
-      return models.Post.findAll();
+    async getAllPosts(_, __, { dataSources: { Post }  }) {
+
+      return await Post.getAllPosts();
     },
-    async getPostById(_, { postId }, { models }) {
-      return models.Post.findOne({ where: { id: postId } });
+    async getPostById(_, { postId }, { dataSources: {Post}  }) {
+      return Post.getPostById({ postId } );
     }
   },
   Mutation: {
-    async createNewPost(_, {title, userId, content}, { models }) {
-      return models.Post.create({
+    async createNewPost(_, { title, userId, content}, { dataSources: {Post}  }) {
+      return Post.createNewPost({
         title,
         userId,
         content
       });
     },
-    async updatePost(_, args, { models}) {
-      const post = await models.Post.findOne({
-        where: { id: args.postId }
-      });
-      if (post) {
-        post.update(args);
-      }
-      return post;
+    async updatePost(_, args, { dataSources: {Post } }) {
+      return await Post.updatePost(args);
+      
     },
-    async deletePost(_, {postId}, { models }) {
-      const post = await models.Post.findOne({where: {id: postId }});
-      if (post) {
-        const deleted = post.destroy();
-        if (deleted) {
-          return {
-            message: 'Post deleted'
-          }
-        }
-      }
+    async deletePost(_, { postId }, { dataSources: {Post}  }) {
+      return await Post.deletePost({postId });
     }
   },
  Post: {

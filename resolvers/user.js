@@ -1,12 +1,10 @@
 module.exports = {
   Query: {
-    async getAllUsers(_, __, { models }) {
-      return await models.User.findAll();
+    async getAllUsers(_, __, { dataSources: { User } }) {
+      return await User.getAllUsers();
     },
-    async getUserById(_, { userId }, { models }) {
-      return await models.User.findOne({
-        where: { id: userId }
-      });
+    async getUserById(_, { userId }, { dataSources: { User } }) {
+      return await User.getUserByI({ userId });
     }
   },
   User: {
