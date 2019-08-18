@@ -11,5 +11,13 @@ module.exports = {
     posts(user) {
       return user.getPosts();
     }
+  },
+  Mutation: {
+    async registerUser(_, args, { dataSources: { User }}) {
+      return await User.registerUser(args);
+    },
+    async loginUser(_, args, { dataSources: { User } }) {
+      return await User.loginUser(args);
+    }
   }
 };

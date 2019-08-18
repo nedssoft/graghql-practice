@@ -5,13 +5,12 @@ const resolvers = require("../resolvers");
 const models = require("../database/models");
 const UserApi = require("../datasource/user");
 const PostApi = require("../datasource/post");
-
+const { verifyUserToken } = require("../helpers");
 const app = express();
-
 
 const dataSources = () => ({
   User: new UserApi(),
-  Post: new PostApi(),
+  Post: new PostApi()
 });
 
 const context = {
@@ -24,7 +23,14 @@ const server = new ApolloServer({
   dataSources,
   introspection: true,
   playground: true,
-  context,
+  context: async ({ req }) => {
+    const token = (req.headers && req.headers.authorization) || "";
+    const user = await verifyUserToken(token);
+    return {
+      models,
+      user
+    };
+  },
   engine: {
     apiKey: process.env.ENGINE_API_KEY
   }

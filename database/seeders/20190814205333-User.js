@@ -1,3 +1,6 @@
+const { generateHash } = require('../../helpers')
+
+const password = generateHash('password');
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert(
     'Users',
@@ -5,12 +8,14 @@ module.exports = {
       {
         name: 'Jane Doe',
         email: 'janedoe@example.com',
+        password,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: 'Jon Doe',
         email: 'jondoe@example.com',
+        password,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
