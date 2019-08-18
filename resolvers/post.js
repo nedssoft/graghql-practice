@@ -9,7 +9,7 @@ module.exports = {
   },
   Mutation: {
     async createNewPost(_, { title, userId, content}, { dataSources: {Post}, user  }) {
-      if (user) throw new Error('Unauthorized');
+      if (!user) throw new Error('Unauthorized');
       return Post.createNewPost({
         title,
         userId,
